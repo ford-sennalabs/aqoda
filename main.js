@@ -171,6 +171,9 @@ function main() {
       case 'list_guest':
         hotel.listGuest();
         return
+      case 'get_guest_in_room':
+        hotel.listGuest();
+        return
       default:
         return
     }
