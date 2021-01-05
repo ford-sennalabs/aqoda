@@ -31,6 +31,10 @@ class Hotel {
     );
   }
 
+  isFull() {
+    return this.rooms.every((room) => !room.available);
+  }
+
   findRoom(roomNo) {
     const foundRoomIndex = this.rooms.findIndex(
       (room) => room.roomNo == roomNo
@@ -73,9 +77,13 @@ class Hotel {
         `Room ${findRoom.roomNo} is booked by ${newGuess.name} with keycard number ${this.keycards[selectedKeyCardIndex].keyCardNo}.`
       );
     } else {
-      console.log(
-        `Cannot book room ${findRoom.roomNo} for ${name}, The room is currently booked by ${findRoom.guess.name}`
-      );
+      if (!this.isFull()) {
+        console.log(
+          `Cannot book room ${findRoom.roomNo} for ${name}, The room is currently booked by ${findRoom.guess.name}`
+        );
+      } else {
+        console.log("Hotel is fully booked.");
+      }
     }
   }
 
