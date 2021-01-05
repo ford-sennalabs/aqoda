@@ -15,7 +15,7 @@ class Hotel {
     const roomsAmout = props.amountOfRoomPerFloor * props.floors;
     this.guess = [];
     this.keycards = Array.from({ length: roomsAmout }).map((_, i) => {
-      return new KeyCard({keyCardNo:i});
+      return new KeyCard({keyCardNo:i+1});
     });
 
     this.rooms = Array.from({ length: roomsAmout }).map((_, i) => {
@@ -40,6 +40,13 @@ class Hotel {
   findKeyCard(cardNo){
     const selectedKeyCardIndex = this.keycards.findIndex((keyCard)=> keyCard.keyCardNo === cardNo);
     return this.keycards[selectedKeyCardIndex];
+
+  }
+
+  listGuest(){
+   const guessNames = this.guess.map((person)=>person.name);
+
+   console.log(guessNames);
 
   }
 
@@ -79,9 +86,12 @@ class Hotel {
     const room = this.findRoom(keyCard.roomNo);
 
     if(guessName === room.guess.name){
-      keyCard.roomNo = null;
       room.checkOut()
-
+      const foundGuessIndex = this.guess.findIndex((guess)=>{
+        return guess.roomNo === keyCard.roomNo
+      })
+      this.guess.splice(foundGuessIndex,1);
+      keyCard.roomNo = null;
       console.log(`Room ${room.roomNo} is checkout.`);
     }
     else{
@@ -157,6 +167,9 @@ function main() {
       case 'checkout':
         const [cardId, guessName] = command.params;
         hotel.roomCheckOut(cardId, guessName);
+        return
+      case 'list_guest':
+        hotel.listGuest();
         return
       default:
         return
