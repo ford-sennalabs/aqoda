@@ -85,7 +85,7 @@ class Hotel {
       console.log(`Room ${room.roomNo} is checkout.`);
     }
     else{
-      console.log(`Your name is not the same owner room (${room.roomNo})`);
+      console.log(`Only ${room.guess.name} can checkout with keycard number ${room.keycardNo}.`);
     }
   }
 
@@ -106,7 +106,7 @@ class Room {
     this.roomNo = props.roomNo;
     this.available = true;
     this.guess = null;
-    this.keycard = null;
+    this.keycardNo = null;
   }
 
   checkIn(guess,keycardNo){
